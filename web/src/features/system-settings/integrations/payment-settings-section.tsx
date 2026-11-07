@@ -65,6 +65,10 @@ import { AmountOptionsVisualEditor } from './amount-options-visual-editor'
 import { CreemProductsVisualEditor } from './creem-products-visual-editor'
 import { PaymentMethodsVisualEditor } from './payment-methods-visual-editor'
 import {
+  SePaySettingsSection,
+  type SePaySettingsHandle,
+} from './sepay-settings-section'
+import {
   formatJsonForEditor,
   getJsonError,
   normalizeJsonForComparison,
@@ -224,6 +228,9 @@ export function PaymentSettingsSection({
   complianceDefaults,
 }: PaymentSettingsSectionProps) {
   const { t } = useTranslation()
+  const [activeTab, setActiveTab] = React.useState('general')
+  const [savingAll, setSavingAll] = React.useState(false)
+  const sePayRef = React.useRef<SePaySettingsHandle>(null)
   const queryClient = useQueryClient()
   const updateOption = useUpdateOption()
   const initialFormValues = React.useMemo<PaymentFormValues>(
@@ -711,7 +718,7 @@ export function PaymentSettingsSection({
       waffoPancakeSelection.productID !== waffoPancakeSavedBinding.productID
 
     if (updates.length === 0 && !hasWaffoPancakeChanges) {
-      toast.info(t('No changes to save'))
+      if (!sePayRef.current?.isDirty()) toast.info(t('No changes to save'))
       return
     }
 
@@ -774,6 +781,23 @@ export function PaymentSettingsSection({
           error instanceof Error ? error.message : String(error)
         }`
       )
+    }
+  }
+
+  const saveAll = async () => {
+    if (!(await form.trigger())) return
+    if (sePayRef.current && !(await sePayRef.current.validate())) {
+      setActiveTab('sepay')
+      return
+    }
+    setSavingAll(true)
+    try {
+      await form.handleSubmit(onSubmit)()
+      await sePayRef.current?.save()
+    } catch (error) {
+      handleServerError(error, t('Failed to save configuration'))
+    } finally {
+      setSavingAll(false)
     }
   }
 
@@ -866,24 +890,28 @@ export function PaymentSettingsSection({
         onConfirm={() => confirmComplianceMutation.mutate()}
       />
 
-      <Form {...form}>
-        <SettingsForm
-          onSubmit={form.handleSubmit(onSubmit)}
-          className={cn(
-            'gap-y-8',
-            !complianceConfirmed && 'pointer-events-none opacity-40'
-          )}
-          data-no-autosubmit='true'
-        >
-          <SettingsPageFormActions
-            onSave={form.handleSubmit(onSubmit)}
-            isSaving={updateOption.isPending || isSubmitting}
-            saveLabel='Save all settings'
-          />
-          <Tabs defaultValue='general' className='min-w-0'>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className='min-w-0'>
+        <Form {...form}>
+          <SettingsForm
+            onSubmit={(event) => {
+              event.preventDefault()
+              void saveAll()
+            }}
+            className={cn(
+              'gap-y-8',
+              !complianceConfirmed && 'pointer-events-none opacity-40'
+            )}
+            data-no-autosubmit='true'
+          >
+            <SettingsPageFormActions
+              onSave={() => void saveAll()}
+              isSaving={savingAll || updateOption.isPending || isSubmitting}
+              saveLabel='Save all settings'
+            />
             <div className='overflow-x-auto pb-1'>
-              <TabsList className='grid min-w-[44rem] grid-cols-6'>
+              <TabsList className='grid min-w-[56rem] grid-cols-7'>
                 <TabsTrigger value='general'>{t('General')}</TabsTrigger>
+                <TabsTrigger value='sepay'>MB Bank / SePay</TabsTrigger>
                 <TabsTrigger value='epay'>Epay</TabsTrigger>
                 <TabsTrigger value='stripe'>{t('Stripe')}</TabsTrigger>
                 <TabsTrigger value='creem'>Creem</TabsTrigger>
@@ -1631,9 +1659,16 @@ export function PaymentSettingsSection({
                 onPayMethodsChange={setWaffoPayMethods}
               />
             </TabsContent>
-          </Tabs>
-        </SettingsForm>
-      </Form>
+          </SettingsForm>
+        </Form>
+        <TabsContent
+          value='sepay'
+          keepMounted
+          className={paymentTabContentClassName}
+        >
+          <SePaySettingsSection ref={sePayRef} />
+        </TabsContent>
+      </Tabs>
     </SettingsSection>
   )
 }

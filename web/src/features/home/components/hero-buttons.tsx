@@ -17,8 +17,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
-import { ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { TbArrowRight as ArrowRight } from 'react-icons/tb'
 
 import { Button } from '@/components/ui/button'
 
@@ -33,7 +33,11 @@ export function HeroButtons({ isAuthenticated }: HeroButtonsProps) {
   const { t } = useTranslation()
   if (isAuthenticated) {
     return (
-      <Button size='lg' render={<Link to='/dashboard' />}>
+      <Button
+        className='h-11 rounded-xl px-5'
+        size='lg'
+        render={<Link to='/dashboard' />}
+      >
         {t('Go to Dashboard')} <ArrowRight className='ml-2 h-5 w-5' />
       </Button>
     )
@@ -41,11 +45,20 @@ export function HeroButtons({ isAuthenticated }: HeroButtonsProps) {
 
   return (
     <>
-      <Button size='lg' render={<Link to='/sign-up' />}>
+      <Button
+        className='h-11 rounded-xl px-5'
+        size='lg'
+        render={<Link to='/sign-up' />}
+      >
         {t('Get Started')}
         <ArrowRight className='ml-2 h-5 w-5' />
       </Button>
-      <Button size='lg' variant='outline' render={<Link to='/sign-in' />}>
+      <Button
+        className='h-11 rounded-xl px-5'
+        size='lg'
+        variant='outline'
+        render={<Link to='/sign-in' />}
+      >
         {t('Sign In')}
       </Button>
     </>

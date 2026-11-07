@@ -35,7 +35,11 @@ import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/stores/auth-store'
 
 import { getTaskPluginOptions } from '../api'
-import { CHANNEL_TYPE_OPTIONS, CHANNEL_TYPE_TASK_PLUGIN } from '../constants'
+import {
+  CHANNEL_TYPE_APIPASS,
+  CHANNEL_TYPE_OPTIONS,
+  CHANNEL_TYPE_TASK_PLUGIN,
+} from '../constants'
 import { getChannelTypeIcon } from '../lib/channel-utils'
 
 export function ChannelTypeLogo(props: {
@@ -45,6 +49,14 @@ export function ChannelTypeLogo(props: {
   className?: string
 }) {
   const size = props.size ?? 16
+  if (props.type === CHANNEL_TYPE_APIPASS) {
+    return (
+      <PluginIcon
+        plugin={{ key: 'apipass', name: 'APIPass', icon: 'text:AP' }}
+        size={size}
+      />
+    )
+  }
   if (props.type === CHANNEL_TYPE_TASK_PLUGIN && props.plugin) {
     return <PluginIcon plugin={props.plugin} size={size} />
   }

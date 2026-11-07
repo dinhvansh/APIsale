@@ -17,9 +17,13 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import { Link, useLocation } from '@tanstack/react-router'
-import { ExternalLink, Loader2, ChevronRight } from 'lucide-react'
 import { useMemo, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import {
+  TbExternalLink as ExternalLink,
+  TbLoader2 as Loader2,
+  TbChevronRight as ChevronRight,
+} from 'react-icons/tb'
 import { toast } from 'sonner'
 
 import {
@@ -267,7 +271,7 @@ export function ChatPresetsItem({ item }: { item: NavChatPresets }) {
         className='group/collapsible-trigger'
         render={<SidebarMenuButton />}
       >
-        {item.icon && <item.icon className='shrink-0' />}
+        {item.icon && <span className='bee-nav-icon' aria-hidden='true'><item.icon /></span>}
         <span className='min-w-0 flex-1 truncate'>{item.title}</span>
         <ChevronRight className='ms-auto size-4 shrink-0 transition-transform duration-200 group-data-[panel-open]/collapsible-trigger:rotate-90' />
       </CollapsibleTrigger>

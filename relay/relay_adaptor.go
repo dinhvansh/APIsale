@@ -10,6 +10,7 @@ import (
 	"github.com/QuantumNous/new-api/relay/channel"
 	"github.com/QuantumNous/new-api/relay/channel/advancedcustom"
 	"github.com/QuantumNous/new-api/relay/channel/ali"
+	"github.com/QuantumNous/new-api/relay/channel/apipass"
 	"github.com/QuantumNous/new-api/relay/channel/aws"
 	"github.com/QuantumNous/new-api/relay/channel/baidu"
 	"github.com/QuantumNous/new-api/relay/channel/baidu_v2"
@@ -49,6 +50,8 @@ import (
 
 func GetAdaptor(apiType int) channel.Adaptor {
 	switch apiType {
+	case constant.APITypeAPIPass:
+		return &apipass.Adaptor{}
 	case constant.APITypeAli:
 		return &ali.Adaptor{}
 	case constant.APITypeAnthropic:
@@ -139,6 +142,7 @@ func GetTaskPlatform(c *gin.Context) constant.TaskPlatform {
 }
 
 var taskPluginKeys = map[constant.TaskPlatform]string{
+	constant.TaskPlatform(strconv.Itoa(constant.ChannelTypeAPIPass)): "apipass",
 	constant.TaskPlatformSuno:                                            "sunoapi",
 	constant.TaskPlatform(strconv.Itoa(constant.ChannelTypeAli)):         "alibaba",
 	constant.TaskPlatform(strconv.Itoa(constant.ChannelTypeKling)):       "kling",

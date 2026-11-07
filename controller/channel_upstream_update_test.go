@@ -18,6 +18,20 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+func TestFetchAPIPassModelsUsesMarketplaceCatalogue(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Equal(t, "/v1/models", r.URL.Path)
+		assert.Equal(t, "Bearer apipass-test-key", r.Header.Get("Authorization"))
+		w.Header().Set("Content-Type", "application/json")
+		_, _ = w.Write([]byte(`{"models":[{"id":"uuid-not-a-model","endpoints":[{"name":"google/nano-banana-2","task_type":"text-to-image"},{"name":"claude-sonnet-5","task_type":"text-to-text"},{"name":"suno/generate","task_type":"text-to-music"}]}]}`))
+	}))
+	defer server.Close()
+	base := server.URL
+	models, err := fetchChannelUpstreamModelIDs(&model.Channel{Type: constant.ChannelTypeAPIPass, Key: "apipass-test-key", BaseURL: &base})
+	require.NoError(t, err)
+	assert.Equal(t, []string{"claude-sonnet-5", "google/nano-banana-2", "suno/generate"}, models)
+}
+
 func newAdvancedCustomModelListChannel(baseURL string, key string, upstreamPath string, auth *dto.AdvancedCustomRouteAuth) *model.Channel {
 	config := &dto.AdvancedCustomConfig{
 		Routes: []dto.AdvancedCustomRoute{

@@ -34,11 +34,43 @@ import {
   type ReactNode,
 } from 'react'
 
+import rvcLogo from '@/assets/brand-icons/rvc.png'
 import sglangLogo from '@/assets/brand-icons/sglang.svg'
+import sunoLogo from '@/assets/brand-icons/suno.png'
 import { IconSub2api } from '@/assets/custom/icon-sub2api'
 import { IconWan } from '@/assets/custom/icon-wan'
 
 const CUSTOM_ICONS: Record<string, ComponentType<{ size?: number }>> = {
+  RVC: (props) => (
+    <img
+      src={rvcLogo}
+      alt=''
+      aria-hidden='true'
+      width={props.size ?? 20}
+      height={props.size ?? 20}
+      className='object-contain'
+    />
+  ),
+  BeeskyBase: (props) => (
+    <img
+      src='/beesky-logo.svg'
+      alt=''
+      aria-hidden='true'
+      width={props.size ?? 20}
+      height={props.size ?? 20}
+      className='object-contain'
+    />
+  ),
+  Suno: (props) => (
+    <img
+      src={sunoLogo}
+      alt=''
+      aria-hidden='true'
+      width={props.size ?? 20}
+      height={props.size ?? 20}
+      className='object-contain'
+    />
+  ),
   SGLang: (props) => (
     <img
       src={sglangLogo}

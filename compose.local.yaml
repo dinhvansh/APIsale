@@ -1,0 +1,72 @@
+name: new-api-local
+services:
+  backend:
+    image: golang:1.26.10-alpine
+    working_dir: /app
+    command: ["sh", "-c", "go run -p 2 . --port 3000 --log-dir /data/logs"]
+    environment:
+      CGO_ENABLED: "0"
+      GOWORK: "off"
+      GOMAXPROCS: "2"
+      GOMEMLIMIT: "1400MiB"
+      SQL_DSN: postgresql://newapi:${LOCAL_DB_PASSWORD}@postgres:5432/newapi
+      REDIS_CONN_STRING: redis://redis:6379
+      SESSION_SECRET: ${LOCAL_SESSION_SECRET}
+      SESSION_COOKIE_SECURE: "false"
+      TZ: Asia/Ho_Chi_Minh
+      DEFAULT_LANGUAGE: en
+    ports:
+      - "127.0.0.1:3030:3000"
+    volumes:
+      - .:/app
+      - go_modules:/go/pkg/mod
+      - go_build:/root/.cache/go-build
+      - backend_data:/data
+    mem_limit: 2g
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+  web:
+    image: oven/bun:1.4.4
+    working_dir: /app/web
+    command: ["sh", "-c", "bun install --frozen-lockfile && bun run dev --port 5173"]
+    environment:
+      VITE_REACT_APP_SERVER_URL: http://backend:3000
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "127.0.0.1:5173:5173"
+    volumes:
+      - .:/app
+      - web_modules:/app/web/node_modules
+      - bun_cache:/root/.bun/install/cache
+    mem_limit: 3g
+    depends_on:
+      - backend
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: newapi
+      POSTGRES_PASSWORD: ${LOCAL_DB_PASSWORD}
+      POSTGRES_DB: newapi
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U newapi -d newapi"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 384m
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    mem_limit: 128m
+volumes:
+  go_modules:
+  go_build:
+  backend_data:
+  web_modules:
+  bun_cache:
+  postgres_data:
+

@@ -18,6 +18,12 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { Link } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
+import {
+  TbArrowUpRight,
+  TbHexagons,
+  TbSparkles,
+  TbSquareKey,
+} from 'react-icons/tb'
 
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSystemConfig } from '@/hooks/use-system-config'
@@ -26,37 +32,70 @@ type AuthLayoutProps = {
   children: React.ReactNode
 }
 
-export function AuthLayout({ children }: AuthLayoutProps) {
+export function AuthLayout(props: AuthLayoutProps) {
   const { t } = useTranslation()
   const { systemName, logo, loading } = useSystemConfig()
 
   return (
-    <div className='relative grid h-svh max-w-none'>
-      <Link
-        to='/'
-        className='absolute top-4 left-4 z-10 flex items-center gap-2 transition-opacity hover:opacity-80 sm:top-8 sm:left-8'
-      >
-        <div className='relative h-8 w-8'>
+    <div className='bee-auth'>
+      <header className='bee-auth-header'>
+        <Link to='/' className='bee-auth-brand'>
           {loading ? (
-            <Skeleton className='absolute inset-0 rounded-full' />
+            <Skeleton className='h-10 w-10 rounded-full' />
           ) : (
             <img
               src={logo}
               alt={t('Logo')}
-              className='h-8 w-8 rounded-full object-cover'
+              className='h-10 w-10 rounded-full object-cover'
             />
           )}
-        </div>
-        {loading ? (
-          <Skeleton className='h-6 w-24' />
-        ) : (
-          <h1 className='text-xl font-medium'>{systemName}</h1>
-        )}
-      </Link>
-      <div className='container flex items-center pt-16 sm:pt-0'>
-        <div className='mx-auto flex w-full flex-col justify-center space-y-2 px-4 py-8 sm:w-[480px] sm:p-8'>
-          {children}
-        </div>
+          {loading ? (
+            <Skeleton className='h-6 w-28' />
+          ) : (
+            <span>{systemName}</span>
+          )}
+        </Link>
+        <Link to='/' className='bee-auth-home'>
+          {t('Back to home')} <TbArrowUpRight aria-hidden='true' />
+        </Link>
+      </header>
+      <div className='bee-auth-grid'>
+        <aside className='bee-auth-story' aria-label={t('Your AI workspace')}>
+          <div className='bee-auth-eyebrow'>
+            <TbSparkles aria-hidden='true' /> {t('Your AI workspace')}
+          </div>
+          <h2>
+            {t('One connection.')}
+            <br />
+            <span>{t('More possibilities.')}</span>
+          </h2>
+          <p>
+            {t(
+              'Connect models, manage API keys, and build your next idea in one place.'
+            )}
+          </p>
+          <div className='bee-auth-art' aria-hidden='true'>
+            <div className='bee-auth-orbit bee-auth-orbit-one' />
+            <div className='bee-auth-orbit bee-auth-orbit-two' />
+            <div className='bee-auth-art-core'>
+              <TbHexagons />
+            </div>
+            <span className='bee-auth-art-key'>
+              <TbSquareKey />
+            </span>
+            <span className='bee-auth-art-spark'>
+              <TbSparkles />
+            </span>
+            <span className='bee-auth-art-label'>API / AI / BUILD</span>
+          </div>
+          <div className='bee-auth-story-footer'>
+            <span className='bee-auth-dot' />
+            {t('A simpler way to build with AI')}
+          </div>
+        </aside>
+        <main className='bee-auth-main'>
+          <div className='bee-auth-card'>{props.children}</div>
+        </main>
       </div>
     </div>
   )

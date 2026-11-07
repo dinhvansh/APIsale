@@ -18,10 +18,14 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
-import { Loader2, LogIn, KeyRound } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import {
+  TbLoader2 as Loader2,
+  TbLogin2 as LogIn,
+  TbSquareKey as KeyRound,
+} from 'react-icons/tb'
 import { toast } from 'sonner'
 import type { z } from 'zod'
 
@@ -362,6 +366,7 @@ export function UserAuthForm({
                   <FormLabel>{t('Username or Email')}</FormLabel>
                   <FormControl>
                     <Input
+                      autoComplete='username'
                       placeholder={t('Enter your username or email')}
                       {...field}
                     />
@@ -380,6 +385,7 @@ export function UserAuthForm({
                   <FormLabel>{t('Password')}</FormLabel>
                   <FormControl>
                     <PasswordInput
+                      autoComplete='current-password'
                       placeholder={t('Enter password')}
                       {...field}
                     />

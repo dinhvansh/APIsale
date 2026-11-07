@@ -42,6 +42,7 @@ import { resolveLocalizedText } from '@/lib/localized-text'
 import type { TaskPluginOption } from '../../api'
 import {
   CHANNEL_PROVIDER_PRESENTATION,
+  CHANNEL_TYPE_APIPASS,
   CHANNEL_TYPE_NEW_API,
   CHANNEL_TYPE_OPTIONS,
   CHANNEL_TYPE_SUB2API,
@@ -120,6 +121,7 @@ export function ChannelProviderPicker(props: ChannelProviderPickerProps) {
           continue
         }
         for (const plugin of props.plugins) {
+          if (plugin.key === 'apipass') continue
           entries.push({
             id: `plugin:${plugin.key}`,
             label: plugin.name,
@@ -140,6 +142,7 @@ export function ChannelProviderPicker(props: ChannelProviderPickerProps) {
         const isCustom =
           option.value === 8 || option.value === CHANNEL_TYPE_ADVANCED_CUSTOM
         const isGateway =
+          option.value === CHANNEL_TYPE_APIPASS ||
           option.value === CHANNEL_TYPE_NEW_API ||
           option.value === CHANNEL_TYPE_SUB2API
         if (filter === 'gateway' && !isGateway) continue

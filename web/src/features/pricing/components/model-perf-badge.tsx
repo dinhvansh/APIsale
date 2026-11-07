@@ -76,6 +76,26 @@ export const ModelPerfBadge = memo(function ModelPerfBadge(
       ? t('Success rate')
       : t('No performance data available')
 
+  if (
+    statusSamples.length === 0 &&
+    latencyText === '—' &&
+    throughputText === '—' &&
+    !hasSuccessRate
+  ) {
+    return (
+      <div
+        aria-label={t('Performance metrics for the last 24 hours')}
+        className={cn(
+          'text-muted-foreground flex min-w-0 items-center justify-between gap-3 text-xs',
+          props.className
+        )}
+      >
+        <span>{t('No performance data available')}</span>
+        {props.children}
+      </div>
+    )
+  }
+
   return (
     <div
       aria-label={t('Performance metrics for the last 24 hours')}
@@ -124,7 +144,7 @@ export const ModelPerfBadge = memo(function ModelPerfBadge(
             {t('Latency short')}
           </dt>
           <dd className='mt-1 font-mono whitespace-nowrap'>
-            {latencyText === '—' ? '—s' : latencyText}
+            {latencyText === '—' ? t('No data yet') : latencyText}
           </dd>
         </div>
         <div title={t('Throughput')} className='shrink-0'>
@@ -132,7 +152,7 @@ export const ModelPerfBadge = memo(function ModelPerfBadge(
             {t('Throughput short')}
           </dt>
           <dd className='mt-1 font-mono whitespace-nowrap'>
-            {throughputText === '—' ? '—t/s' : throughputText}
+            {throughputText === '—' ? t('No data yet') : throughputText}
           </dd>
         </div>
       </dl>

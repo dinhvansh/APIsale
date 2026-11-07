@@ -174,6 +174,7 @@ beforeEach(() => {
           success: true,
           data: {
             22: 'https://fastgpt.server.example/api/openapi',
+            64: 'https://api.apipass.dev',
             24: 'https://gemini.server.example',
             43: 'https://deepseek.server.example',
             45: 'https://volcengine.server.example',
@@ -3028,4 +3029,30 @@ test('AWS interface selection is disabled without sensitive channel write permis
   expect(
     await screen.findByRole('combobox', { name: 'AWS API' })
   ).toBeDisabled()
+})
+
+test('APIPass is a separate provider and keeps OpenAI available when creating channels', async () => {
+  pluginOptions = [
+    ...plugins,
+    {
+      key: 'apipass',
+      name: 'APIPass',
+      channelTypes: [64],
+      models: ['google/nano-banana-2'],
+    },
+  ]
+  const user = userEvent.setup()
+  render(<ConfigurationHarness />)
+  const apipass = await screen.findByRole('option', { name: /^APIPass / })
+  expect(screen.getAllByRole('option', { name: /^APIPass / })).toHaveLength(1)
+  expect(screen.getByRole('option', { name: /^OpenAI / })).toBeVisible()
+  await user.click(apipass)
+  await waitFor(() =>
+    expect(screen.getByRole('textbox', { name: 'Base URL' })).toHaveAttribute(
+      'placeholder',
+      'https://api.apipass.dev'
+    )
+  )
+  await user.click(screen.getByRole('button', { name: 'Change provider' }))
+  expect(screen.getByRole('option', { name: /^OpenAI / })).toBeVisible()
 })

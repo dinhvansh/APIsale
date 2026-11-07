@@ -817,3 +817,46 @@ func TestSelfTaskMediaURLGuard(t *testing.T) {
 	assert.True(t, isTaskMediaFallbackLoop(remoteURL.String(), "task-1"))
 	assert.False(t, isTaskMediaFallbackLoop(remoteURL.String(), "task-2"))
 }
+
+func TestPlaygroundTaskContextRejectsPersonalAccessTokens(t *testing.T) {
+	recorder := httptest.NewRecorder()
+	c, _ := gin.CreateTestContext(recorder)
+	c.Set("use_access_token", true)
+	PlaygroundTaskContext(c)
+	assert.Equal(t, http.StatusForbidden, recorder.Code)
+	assert.True(t, c.IsAborted())
+}
+
+func TestPlaygroundResultIsOwnerOnlyAndDoesNotExposeProviderData(t *testing.T) {
+	task := setupGenericTaskTest(t)
+	task.Quota = 123
+	task.Data = []byte(`{"code":200,"apiKey":"private-key","data":{"taskId":"private-provider-id","resultJson":"{\"data\":[{\"text\":\"Original lyrics\",\"title\":\"Demo\",\"audio_url\":\"https://private.example/song\"}]}"}}`)
+	require.NoError(t, model.DB.Save(task).Error)
+	for _, tc := range []struct {
+		name           string
+		userID, status int
+	}{
+		{"owner", task.UserId, http.StatusOK},
+		{"foreign user including administrator", task.UserId + 1, http.StatusNotFound},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			recorder := httptest.NewRecorder()
+			c, _ := gin.CreateTestContext(recorder)
+			c.Set("id", tc.userID)
+			c.Set("role", common.RoleRootUser)
+			c.Params = gin.Params{{Key: "key", Value: task.TaskID}}
+			GetPlaygroundTaskResult(c)
+			assert.Equal(t, tc.status, recorder.Code)
+			assert.NotContains(t, recorder.Body.String(), "private-key")
+			assert.NotContains(t, recorder.Body.String(), "private-provider-id")
+			assert.NotContains(t, recorder.Body.String(), "private.example")
+			if tc.status == http.StatusOK {
+				assert.Equal(t, "private, no-store", recorder.Header().Get("Cache-Control"))
+				var response map[string]any
+				require.NoError(t, common.Unmarshal(recorder.Body.Bytes(), &response))
+				assert.Equal(t, "Original lyrics", response["text"])
+				assert.EqualValues(t, 123, response["quota"])
+			}
+		})
+	}
+}

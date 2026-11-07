@@ -1,0 +1,671 @@
+[
+  {
+    "id": "lake-image",
+    "category": "image",
+    "model": "openai/gpt-image-2",
+    "functionId": "text-image",
+    "title": "Bình minh bên hồ",
+    "prompt": "A cozy wooden lakeside cabin in a pine forest at sunrise, warm golden light, calm cinematic photography, no text, no logo",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "image-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/image-0.png"
+      }
+    ]
+  },
+  {
+    "id": "lake-audio",
+    "category": "audio",
+    "model": "suno/generate",
+    "functionId": "instrumental",
+    "title": "Giai điệu bên hồ",
+    "prompt": "Peaceful acoustic piano instrumental, morning beside a quiet forest lake, gentle guitar, warm cinematic atmosphere",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "audio-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/audio-0.mp3"
+      },
+      {
+        "key": "audio-2.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/audio-2.mp3"
+      }
+    ]
+  },
+  {
+    "id": "lake-video",
+    "category": "video",
+    "model": "google/veo-3-1-fast",
+    "functionId": "text-video",
+    "title": "Chuyển động buổi sớm",
+    "prompt": "A peaceful wooden cabin beside a forest lake at sunrise, gentle mist drifts across still water, slow cinematic camera push, natural colors, no text or logos",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "video-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/video-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "lake-chat",
+    "category": "chat",
+    "model": "claude-haiku-5-5",
+    "functionId": "chat",
+    "title": "Ý tưởng cho homestay bên hồ",
+    "prompt": "Viết 3 ý tưởng giới thiệu một homestay bên hồ. Mỗi ý tưởng có tiêu đề và mô tả ngắn, giọng văn gần gũi.",
+    "createdAt": "2026-11-06",
+    "artifacts": [],
+    "text": "**1. Thức dậy cùng sương sớm bên hồ**\nMỗi sáng, bạn sẽ được đánh thức bởi tiếng chim hót và làn sương mỏng vắt ngang mặt nước. Ra hiên nhà, nhâm nhi ly cà phê nóng và ngắm hồ dần dần rực lên dưới nắng. Ở đây, buổi sáng chậm rãi đúng nghĩa.\n\n**2. Bếp nhà quê, bữa cơm hồ\"**\nChúng tôi nấu những món đơn giản từ rau củ vườn nhà và cá đánh bắt trong ngày. Bạn có thể cùng chủ nhà ra bến câu cá, rồi quây quần ăn cơm trong gian bếp ấm cúng. Một bữa cơm đúng vị quê, đúng tình người.\n\n**3. Chiều hồ, thả mình cho bình yên**\nCuối ngày, hãy kéo chiếc võng ra bến nhỏ, đung đưa nghe gió thổi qua mặt hồ và ngắm hoàng hôn nhuộm đỏ cả một khoảng trời. Nếu thích, bạn có thể thuê thuyền kayak chèo nhẹ quanh hồ. Đây là nơi để quên đi điện thoại và nghỉ ngơi thật sự."
+  },
+  {
+    "id": "lake-lyrics",
+    "category": "audio",
+    "model": "suno/lyrics",
+    "functionId": "lyrics",
+    "title": "Lời hát đón bình minh",
+    "prompt": "A short hopeful song about sunrise beside a quiet forest lake",
+    "createdAt": "2026-11-06",
+    "artifacts": [],
+    "text": "[Intro – soft fingerpicked guitar, distant loon call]\nMist is lifting off the water\nFirst light finds the pines\n\n[Verse 1 – warm acoustic guitar, light brushed drums]\nWake up slow, the sky is turning gold\nEvery shadow learning how to fold\nCold air soft against my open hand\nNothing here I need to understand\n\n[Chorus – soft harmonies, strings swelling]\nHere comes the morning, quiet and wide\nHope is a ripple across the tide\nNothing to prove and nowhere to run\nJust me and the water and the rising sun\n\n[Verse 2 – brighter fingerpicking, soft tambourine]\nLoons are calling from the far shoreline\nSteam curls up in morning's thin design\nEvery worry loosens like a thread\nLight is pouring where the dark had spread\n\n[Chorus – fuller harmonies, warm low end]\nHere comes the morning, easy and true\nColoring everything a softer blue\nWhatever the night was holding on\nIt lets go with the rising sun\n\n[Bridge – sparse piano, held vocal]\nI was tired of waiting for a sign\nNow the whole horizon's mine\nLet the long dark have its say\nIt can't keep the light away\n\n[Interlude – gentle guitar solo, lake birds waking]\n(Instrumental Solo)\n\n[Final Chorus – full band, bright strings, harmony stack]\nHere comes the morning, quiet and wide\nHope is a river I don't have to hide\nNothing to carry, nothing to outrun\nJust me and the water and the rising sun\n\n[Outro – soft guitar, fading birdsong]\nThe lake holds the light like a prayer\nAnd the day begins to breathe"
+  },
+  {
+    "id": "bytedance-seedance-2-mini-text-video",
+    "category": "video",
+    "model": "bytedance/seedance-2-mini",
+    "functionId": "text-video",
+    "title": "Video từ mô tả",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "bytedance-seedance-2-mini-text-video-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/bytedance-seedance-2-mini-text-video-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "bytedance-seedance-2-mini-image-video",
+    "category": "video",
+    "model": "bytedance/seedance-2-mini",
+    "functionId": "image-video",
+    "title": "Ảnh chuyển thành video",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "bytedance-seedance-2-mini-image-video-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/bytedance-seedance-2-mini-image-video-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "google-veo-3-1-fast-image-video",
+    "category": "video",
+    "model": "google/veo-3-1-fast",
+    "functionId": "image-video",
+    "title": "Ảnh chuyển thành video",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "google-veo-3-1-fast-image-video-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/google-veo-3-1-fast-image-video-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "kling-kling-2-6-text-video",
+    "category": "video",
+    "model": "kling/kling-2-6",
+    "functionId": "text-video",
+    "title": "Video từ mô tả",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "kling-kling-2-6-text-video-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/kling-kling-2-6-text-video-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-edit-image",
+    "category": "image",
+    "model": "openai/gpt-image-2",
+    "functionId": "edit-image",
+    "title": "Chỉnh sửa ảnh mẫu",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-edit-image-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-edit-image-0.png"
+      }
+    ]
+  },
+  {
+    "id": "google-nano-banana-2-text-image",
+    "category": "image",
+    "model": "google/nano-banana-2",
+    "functionId": "text-image",
+    "title": "Ảnh tạo từ ý tưởng",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "google-nano-banana-2-text-image-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/google-nano-banana-2-text-image-0.png"
+      }
+    ]
+  },
+  {
+    "id": "google-nano-banana-2-edit-image",
+    "category": "image",
+    "model": "google/nano-banana-2",
+    "functionId": "edit-image",
+    "title": "Chỉnh sửa ảnh mẫu",
+    "prompt": "A peaceful lakeside wooden cabin at sunrise, warm natural light, gentle mist, slow camera movement, no text",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "google-nano-banana-2-edit-image-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/google-nano-banana-2-edit-image-0.png"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-music-idea",
+    "category": "audio",
+    "model": "suno/generate",
+    "functionId": "music-idea",
+    "title": "Bài hát từ ý tưởng",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-music-idea-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-music-idea-0.mp3"
+      },
+      {
+        "key": "suno-generate-music-idea-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-music-idea-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-music-lyrics",
+    "category": "audio",
+    "model": "suno/generate",
+    "functionId": "music-lyrics",
+    "title": "Phổ nhạc lời có sẵn",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-music-lyrics-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-music-lyrics-0.mp3"
+      },
+      {
+        "key": "suno-generate-music-lyrics-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-music-lyrics-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-add-vocals",
+    "category": "audio",
+    "model": "suno/add-vocals",
+    "functionId": "add-vocals",
+    "title": "Thêm giọng hát",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-add-vocals-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-add-vocals-0.mp3"
+      },
+      {
+        "key": "suno-generate-add-vocals-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-add-vocals-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-add-instrumental",
+    "category": "audio",
+    "model": "suno/add-instrumental",
+    "functionId": "add-instrumental",
+    "title": "Thêm nhạc nền",
+    "prompt": "",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-add-instrumental-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-add-instrumental-0.mp3"
+      },
+      {
+        "key": "suno-generate-add-instrumental-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-add-instrumental-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-cover",
+    "category": "audio",
+    "model": "suno/upload-cover",
+    "functionId": "cover",
+    "title": "Đổi phong cách bài hát",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-cover-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-cover-0.mp3"
+      },
+      {
+        "key": "suno-generate-cover-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-cover-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-extend",
+    "category": "audio",
+    "model": "suno/extend",
+    "functionId": "extend",
+    "title": "Nối dài bài hát",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-extend-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-extend-0.mp3"
+      },
+      {
+        "key": "suno-generate-extend-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-extend-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-upload-extend",
+    "category": "audio",
+    "model": "suno/upload-extend",
+    "functionId": "upload-extend",
+    "title": "Nối dài tệp nhạc",
+    "prompt": "Morning light upon the lake\nWe wake with hope, a brand new day\nGentle waves will guide our way",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-upload-extend-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-upload-extend-0.mp3"
+      },
+      {
+        "key": "suno-generate-upload-extend-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-upload-extend-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-generate-separate",
+    "category": "audio",
+    "model": "suno/vocal-separation",
+    "functionId": "separate",
+    "title": "Tách các lớp âm thanh",
+    "prompt": "",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-separate-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-separate-0.mp3"
+      },
+      {
+        "key": "suno-generate-separate-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-separate-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "beesky-image-watermark-remove-clean-image",
+    "category": "tools",
+    "model": "beesky/image-watermark-remove",
+    "functionId": "clean-image",
+    "title": "Làm sạch ảnh mẫu",
+    "prompt": "",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "beesky-image-watermark-remove-clean-image-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/beesky-image-watermark-remove-clean-image-0.png"
+      }
+    ]
+  },
+  {
+    "id": "kling-4-0-reference-to-video-verified",
+    "category": "video",
+    "model": "kling-4.0/reference-to-video",
+    "functionId": "verified-reference-to-video",
+    "title": "Kling 4.0 Reference",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "kling-4-0-reference-to-video-verified-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/kling-4-0-reference-to-video-verified-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "kling-4-0-keyframe-to-video-verified",
+    "category": "video",
+    "model": "kling-4.0/keyframe-to-video",
+    "functionId": "verified-keyframe-to-video",
+    "title": "Kling 4.0 Keyframe",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "kling-4-0-keyframe-to-video-verified-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/kling-4-0-keyframe-to-video-verified-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "flux-3-max-keyframes-to-video-verified",
+    "category": "video",
+    "model": "flux-3-max/keyframes-to-video",
+    "functionId": "verified-keyframes-to-video",
+    "title": "Flux 3 Max Keyframes",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "flux-3-max-keyframes-to-video-verified-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/flux-3-max-keyframes-to-video-verified-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "flux-3-max-image-to-video-verified",
+    "category": "video",
+    "model": "flux-3-max/image-to-video",
+    "functionId": "verified-image-to-video",
+    "title": "Flux 3 Max",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "flux-3-max-image-to-video-verified-0.mp4",
+        "type": "video",
+        "content_url": "/studio-demos/flux-3-max-image-to-video-verified-0.mp4"
+      }
+    ]
+  },
+  {
+    "id": "flux-3-klein-edit-verified",
+    "category": "image",
+    "model": "flux-3-klein-edit",
+    "functionId": "verified-flux-3-klein-edit",
+    "title": "Flux 3 Klein Edit",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "flux-3-klein-edit-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/flux-3-klein-edit-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "flux-3-klein-verified",
+    "category": "image",
+    "model": "flux-3-klein",
+    "functionId": "verified-flux-3-klein",
+    "title": "Flux 3 Klein",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "flux-3-klein-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/flux-3-klein-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-6-flare-verified",
+    "category": "image",
+    "model": "openai/gpt-image-2.6-flare",
+    "functionId": "verified-gpt-image-2.6-flare",
+    "title": "GPT Image 2.6 Flare",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-6-flare-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-6-flare-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-6-sunburst-verified",
+    "category": "image",
+    "model": "openai/gpt-image-2.6-sunburst",
+    "functionId": "verified-gpt-image-2.6-sunburst",
+    "title": "GPT Image 2.6 Sunburst",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-6-sunburst-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-6-sunburst-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-5-verified",
+    "category": "image",
+    "model": "openai/gpt-image-2.5",
+    "functionId": "verified-gpt-image-2.5",
+    "title": "GPT Image 2.5",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-5-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-5-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-5-flare-verified",
+    "category": "image",
+    "model": "openai/gpt-image-2.5-flare",
+    "functionId": "verified-gpt-image-2.5-flare",
+    "title": "GPT Image 2.5 Flare",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-5-flare-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-5-flare-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "openai-gpt-image-2-5-sunburst-verified",
+    "category": "image",
+    "model": "openai/gpt-image-2.5-sunburst",
+    "functionId": "verified-gpt-image-2.5-sunburst",
+    "title": "GPT Image 2.5 Sunburst",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "openai-gpt-image-2-5-sunburst-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/openai-gpt-image-2-5-sunburst-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "flux-flux-pro-image-2-verified",
+    "category": "image",
+    "model": "flux/flux-pro-image-2",
+    "functionId": "verified-flux-pro-image-2",
+    "title": "Flux Pro Image 2",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "flux-flux-pro-image-2-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/flux-flux-pro-image-2-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "google-nano-banana-2-lite-verified",
+    "category": "image",
+    "model": "google/nano-banana-2-lite",
+    "functionId": "verified-nano-banana-2-lite",
+    "title": "Nano Banana 2 Lite",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "google-nano-banana-2-lite-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/google-nano-banana-2-lite-verified-0.png"
+      }
+    ]
+  },
+  {
+    "id": "suno-boost-style-verified",
+    "category": "audio",
+    "model": "suno/boost-style",
+    "functionId": "verified-boost-style",
+    "title": "Improve music style",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [],
+    "text": "A restrained ambient piano piece in a slow, unhurried tempo, with warm felted acoustic piano playing open major-seventh chords and a simple, rising melody. Close-miked notes retain soft key and pedal detail, while a touch of tape saturation and short room reverb gives them a natural, intimate tail. Sparse pauses let the harmony breathe; faint leaf-like rustling texture and subtle wind ambience sit low beneath, ending on a gentle unresolved chord."
+  },
+  {
+    "id": "suno-generate-agent-verified",
+    "category": "audio",
+    "model": "suno/generate-agent",
+    "functionId": "verified-generate-agent",
+    "title": "Create a song from an idea",
+    "prompt": "A peaceful acoustic piano song about sunrise by a forest lake",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-generate-agent-verified-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-agent-verified-0.mp3"
+      },
+      {
+        "key": "suno-generate-agent-verified-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-generate-agent-verified-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-mashup-verified",
+    "category": "audio",
+    "model": "suno/mashup",
+    "functionId": "verified-mashup",
+    "title": "Mix two audio files",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-mashup-verified-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-mashup-verified-0.mp3"
+      },
+      {
+        "key": "suno-mashup-verified-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-mashup-verified-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "suno-sounds-verified",
+    "category": "audio",
+    "model": "suno/sounds",
+    "functionId": "verified-sounds",
+    "title": "Generate sound effects",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "suno-sounds-verified-0.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-sounds-verified-0.mp3"
+      },
+      {
+        "key": "suno-sounds-verified-1.mp3",
+        "type": "audio",
+        "content_url": "/studio-demos/suno-sounds-verified-1.mp3"
+      }
+    ]
+  },
+  {
+    "id": "google-nano-banana-pro-verified",
+    "category": "image",
+    "model": "google/nano-banana-pro",
+    "functionId": "verified-nano-banana-pro",
+    "title": "Nano Banana Pro",
+    "prompt": "Soft morning light over a peaceful forest lake. A gentle breeze moves the leaves. Warm acoustic piano and a calm, hopeful mood.",
+    "createdAt": "2026-11-06",
+    "artifacts": [
+      {
+        "key": "google-nano-banana-pro-verified-0.png",
+        "type": "image",
+        "content_url": "/studio-demos/google-nano-banana-pro-verified-0.png"
+      }
+    ]
+  }
+]

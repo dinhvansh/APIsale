@@ -161,15 +161,11 @@ describe('model cards', () => {
     const metrics = screen.getByLabelText(
       'Performance metrics for the last 24 hours'
     )
-    expect(within(metrics).getAllByText('—')).toHaveLength(2)
-    expect(within(metrics).getByText('—s')).toBeVisible()
-    expect(within(metrics).getByText('—t/s')).toBeVisible()
-    expect(within(metrics).queryByText(/100/)).not.toBeInTheDocument()
-    const statusStrip = within(metrics).getByRole('img', {
-      name: 'No performance data available',
-    })
-    expect(statusStrip).toHaveTextContent('—')
-    expect(statusStrip.querySelectorAll('[aria-hidden]')).toHaveLength(0)
+    expect(
+      within(metrics).getByText('No performance data available')
+    ).toBeVisible()
+    expect(within(metrics).queryByText('—s')).not.toBeInTheDocument()
+    expect(within(metrics).queryByText('—t/s')).not.toBeInTheDocument()
     expect(screen.getByText('No description available.')).toBeVisible()
     expect(screen.getByRole('button', { name: 'Details' })).toBeEnabled()
   })
@@ -251,11 +247,10 @@ describe('model cards', () => {
     expect(samples[0]).toHaveClass('bg-red-500')
     expect(samples[1]).toHaveClass('bg-emerald-500')
     expect(within(idle).getByText('—')).toBeVisible()
-    expect(within(idle).getByText('—s')).toBeVisible()
-    expect(within(idle).getByText('—t/s')).toBeVisible()
+    expect(within(idle).getAllByText('No data yet')).toHaveLength(2)
   })
 
-  it('keeps group, endpoint and tag overflow counts with their own metadata', () => {
+  it('hides internal groups and connection metadata while keeping model tags', () => {
     const groups = ['default-with-a-long-group-name', 'premium', 'internal']
     const endpoints = ['openai-response', 'openai', 'claude', 'gemini', 'jina']
     const tags = [
@@ -277,21 +272,13 @@ describe('model cards', () => {
       />
     )
 
-    const groupField = screen.getByText('Groups').parentElement
-    const endpointField = screen.getByText('Endpoints').parentElement
-    if (!groupField || !endpointField) {
-      throw new Error('Expected labeled group and endpoint fields')
-    }
-    const tagField = screen.getByRole('group', { name: 'Tags' })
-    expect(within(groupField).getByText(groups[0])).toBeVisible()
-    expect(within(groupField).getByText('+2')).toHaveAttribute(
-      'title',
-      groups.slice(1).join(', ')
-    )
+    expect(screen.queryByText('Groups')).not.toBeInTheDocument()
+    expect(screen.queryByText('Endpoints')).not.toBeInTheDocument()
+    expect(screen.queryByText(groups[0])).not.toBeInTheDocument()
     expect(
-      within(endpointField).getByText('openai-response, openai')
-    ).toHaveAttribute('title', endpoints.join(', '))
-    expect(within(endpointField).getByText('+3')).toBeVisible()
+      screen.queryByText('openai-response, openai')
+    ).not.toBeInTheDocument()
+    const tagField = screen.getByRole('group', { name: 'Tags' })
     expect(
       within(tagField).getByText('video-generation, high-resolution')
     ).toHaveAttribute('title', tags.join(', '))
@@ -620,8 +607,8 @@ describe('model cards', () => {
     expect(
       within(
         screen.getByLabelText('Performance metrics for the last 24 hours')
-      ).getAllByText(/^—/)
-    ).toHaveLength(4)
+      ).getByText('No performance data available')
+    ).toBeVisible()
     const user = userEvent.setup()
     await user.click(screen.getByRole('button', { name: 'Details' }))
     expect(onModelClick).toHaveBeenCalledWith('example-model')

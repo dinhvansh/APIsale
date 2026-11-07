@@ -26,6 +26,13 @@ export const INTERFACE_LANGUAGE_OPTIONS = [
   { code: 'zhTW', label: '繁體中文' },
 ] as const
 
+// Languages offered in the public language menus. Keep resource support for
+// previously saved preferences and translation fallbacks.
+export const SELECTABLE_INTERFACE_LANGUAGE_OPTIONS =
+  INTERFACE_LANGUAGE_OPTIONS.filter(
+    (language) => language.code !== 'zhCN' && language.code !== 'zhTW'
+  )
+
 export type InterfaceLanguageCode =
   (typeof INTERFACE_LANGUAGE_OPTIONS)[number]['code']
 

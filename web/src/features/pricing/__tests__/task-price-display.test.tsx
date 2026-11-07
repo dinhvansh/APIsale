@@ -189,7 +189,7 @@ const imageModel: PricingModel = {
 }
 
 it.each([false, true])(
-  'shows localized image labels and units in base and group pricing when configured=%s',
+  'shows a single localized usage price when configured=%s',
   async (configured) => {
     vi.spyOn(api, 'get').mockResolvedValue({ data: { data: { groups: [] } } })
     const client = new QueryClient({
@@ -214,11 +214,15 @@ it.each([false, true])(
       </QueryClientProvider>
     )
     await act(() => i18next.changeLanguage('zhCN'))
-    expect(screen.getAllByText('图片生成单价')).toHaveLength(2)
-    expect(screen.getAllByText(configured ? '/ 张' : '张')).toHaveLength(2)
+    expect(screen.getAllByText('图片生成单价', { exact: false })).toHaveLength(
+      1
+    )
+    expect(
+      screen.getByText(configured ? 'Prices shown per usage unit' : '张')
+    ).toBeVisible()
     expect(screen.queryByText('image_count')).not.toBeInTheDocument()
     if (configured) {
-      expect(screen.getByText('$0.2')).toBeVisible()
+      expect(screen.queryByText('$0.2')).not.toBeInTheDocument()
       expect(screen.getByText('$0.4')).toBeVisible()
     }
   }
@@ -306,7 +310,7 @@ it('refreshes memoized provider prices when the group or display currency change
   }
 })
 
-it('shows one standard task price and a localized group price without duplicate tiers', async () => {
+it('shows only the applicable price without internal group controls', async () => {
   vi.spyOn(api, 'get').mockResolvedValue({ data: { data: { groups: [] } } })
   const client = new QueryClient({
     defaultOptions: { queries: { retry: false } },
@@ -328,18 +332,19 @@ it('shows one standard task price and a localized group price without duplicate 
   )
   expect(
     screen.getAllByText('Song generation unit price', { exact: false })
-  ).toHaveLength(2)
+  ).toHaveLength(1)
   expect(screen.queryByText('Tiered price table')).not.toBeInTheDocument()
   expect(screen.queryByText('Dynamic Pricing')).not.toBeInTheDocument()
   expect(screen.queryByText('music')).not.toBeInTheDocument()
-  expect(screen.getByText('$0.22')).toBeVisible()
+  expect(screen.queryByText('$0.22')).not.toBeInTheDocument()
+  expect(screen.queryByText('default')).not.toBeInTheDocument()
   expect(screen.getByText('$0.44')).toBeVisible()
   await act(() => i18next.changeLanguage('zhCN'))
-  expect(screen.getAllByText('生成歌曲单价', { exact: false })).toHaveLength(2)
+  expect(screen.getAllByText('生成歌曲单价', { exact: false })).toHaveLength(1)
   await act(() => i18next.changeLanguage('fr'))
   expect(
     screen.getAllByText('Song generation unit price', { exact: false })
-  ).toHaveLength(2)
+  ).toHaveLength(1)
 })
 
 it('labels even a single task price on model cards', async () => {
@@ -515,6 +520,8 @@ it('switches provider group prices, localized conditions and examples, and shows
   clients.push(client)
   const shared: PricingModel = {
     ...model,
+    billing_mode: undefined,
+    billing_expr: undefined,
     quota_type: 1,
     model_price: 0.25,
     billing_plugin_variants: [
@@ -589,7 +596,7 @@ it('switches provider group prices, localized conditions and examples, and shows
   const alpha = screen.getByRole('tab', { name: 'Alpha' })
   expect(alpha).toHaveAttribute('aria-selected', 'true')
   let panel = screen.getByRole('tabpanel', { name: 'Alpha' })
-  expect(within(panel).getByText('Alpha sample')).toBeVisible()
+  expect(within(panel).queryByText('Alpha sample')).not.toBeInTheDocument()
   expect(within(panel).getByText('$0.8')).toBeVisible()
   await user.click(alpha)
   await user.keyboard('{ArrowRight}')

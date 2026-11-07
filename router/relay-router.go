@@ -67,7 +67,15 @@ func SetRelayRouter(router *gin.Engine) {
 	playgroundRouter.Use(middleware.UserAuth(), middleware.Distribute())
 	{
 		playgroundRouter.POST("/chat/completions", controller.Playground)
+		playgroundRouter.POST("/chat/completions/estimate", controller.EstimatePlaygroundChat)
 	}
+	studioTasks := router.Group("/pg/tasks")
+	studioTasks.Use(middleware.RouteTag("relay"), middleware.SystemPerformanceCheck(), middleware.UserAuth())
+	studioTasks.POST("", controller.PlaygroundTaskContext, middleware.PrepareTaskPluginRoute(), middleware.ModelRequestRateLimit(), middleware.Distribute(), controller.RelayTask)
+	studioTasks.POST("/estimate", controller.PlaygroundTaskContext, middleware.PrepareTaskPluginRoute(), middleware.ModelRequestRateLimit(), middleware.Distribute(), controller.EstimatePlaygroundTask)
+	studioTasks.GET("/:key", controller.GetTask)
+	studioTasks.GET("/:key/result", controller.GetPlaygroundTaskResult)
+	studioTasks.GET("/:key/artifacts", controller.GetTaskArtifacts)
 	relayV1Router := router.Group("/v1")
 	relayV1Router.Use(middleware.RouteTag("relay"))
 	relayV1Router.Use(middleware.SystemPerformanceCheck())

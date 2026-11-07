@@ -17,8 +17,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 import type { TFunction } from 'i18next'
-import { Bell, Megaphone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { TbBell as Bell, TbSpeakerphone as Megaphone } from 'react-icons/tb'
 
 import { RichContent } from '@/components/rich-content'
 import { Badge } from '@/components/ui/badge'

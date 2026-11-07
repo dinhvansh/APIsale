@@ -11,6 +11,7 @@ import (
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/constant"
 	"github.com/QuantumNous/new-api/model"
+	"github.com/QuantumNous/new-api/pkg/jsplugin"
 	"github.com/QuantumNous/new-api/relaykit/dto"
 	"github.com/QuantumNous/new-api/setting"
 	"github.com/QuantumNous/new-api/setting/config"
@@ -528,4 +529,18 @@ func TestSetupLoginDoesNotTouchPasswordWhenPasswordFieldOmitted(t *testing.T) {
 	var stored model.User
 	require.NoError(t, db.First(&stored, user.Id).Error)
 	assert.Equal(t, hashedPassword, stored.Password)
+}
+
+func TestStorefrontPricingDoesNotExposeUpstreamOrMutateAdminMetadata(t *testing.T) {
+	schema := map[string]jsplugin.UsageFieldSchema{"credits": {Type: "number", Unit: "credit"}, "jobs": {Type: "number", Unit: "count"}}
+	examples := []jsplugin.UsageExample{{Label: "One request", Facts: map[string]any{"jobs": 1, "credits": 4}}}
+	original := []model.Pricing{{ModelName: "public-model", BillingUsageSchema: schema, BillingUsageExamples: examples, BillingPluginVariants: []model.PricingPluginVariant{{PluginKey: "apipass", PluginName: "APIPass", Icon: "text:AP", BillingUsageSchema: schema, BillingUsageExamples: examples}}}}
+	public := storefrontPricing(original)
+	assert.Equal(t, "BeeskyBase", public[0].BillingPluginVariants[0].PluginName)
+	assert.Equal(t, "beeskybase", public[0].BillingPluginVariants[0].PluginKey)
+	assert.NotContains(t, public[0].BillingUsageSchema, "credits")
+	assert.NotContains(t, public[0].BillingPluginVariants[0].BillingUsageExamples[0].Facts, "credits")
+	assert.Equal(t, "APIPass", original[0].BillingPluginVariants[0].PluginName)
+	assert.Contains(t, original[0].BillingUsageSchema, "credits")
+	assert.Contains(t, original[0].BillingUsageExamples[0].Facts, "credits")
 }

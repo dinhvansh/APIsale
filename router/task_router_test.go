@@ -20,6 +20,7 @@ package router
 
 import (
 	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/gin-gonic/gin"
@@ -36,7 +37,7 @@ func TestSetTaskRouterRegistersWithoutConflict(t *testing.T) {
 	require.NotPanics(t, func() { SetTaskRouter(engine) })
 
 	routes := engine.Routes()
-	require.Len(t, routes, 5)
+	require.Len(t, routes, 8)
 	actual := make(map[string]struct{}, len(routes))
 	for _, route := range routes {
 		actual[route.Method+" "+route.Path] = struct{}{}
@@ -48,5 +49,18 @@ func TestSetTaskRouterRegistersWithoutConflict(t *testing.T) {
 	assert.Contains(t, actual, http.MethodHead+" /v1/tasks/:key/artifacts/:artifact_key/content")
 	for route := range actual {
 		assert.NotContains(t, route, "/native/")
+	}
+}
+
+func TestMediaTaskRoutesRequireAPIKey(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	engine := gin.New()
+	SetTaskRouter(engine)
+	for _, route := range []struct{ method, path string }{
+		{"POST", "/v1/media/tasks"}, {"GET", "/v1/media/tasks/task_sample"}, {"GET", "/v1/media/tasks/task_sample/artifacts"},
+	} {
+		recorder := httptest.NewRecorder()
+		engine.ServeHTTP(recorder, httptest.NewRequest(route.method, route.path, nil))
+		assert.Equal(t, http.StatusUnauthorized, recorder.Code)
 	}
 }

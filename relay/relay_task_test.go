@@ -769,3 +769,26 @@ export function extractUsage() { return {seconds:2}; }
 		})
 	}
 }
+
+func TestEstimateTaskStopsBeforeBillingAndUpstream(t *testing.T) {
+	saveBillingConfig(t)
+	require.NoError(t, config.GlobalConfig.LoadFromDB(map[string]string{
+		"billing_setting.billing_mode": `{"declared-model":"tiered_expr"}`,
+		"billing_setting.billing_expr": `{"declared-model":"tier(\"base\", 0.026)"}`,
+	}))
+	c, info := newTaskSubmitContext(t, "declared-model", "")
+	c.Set("group", "default")
+	info.UserGroup = "default"
+	info.UsingGroup = "default"
+	info.OriginModelName = "declared-model"
+	// This plugin's submit URL is deliberately unreachable. The test must return
+	// a quote without a wallet, billing session, database or network request.
+	pinMappingOrderPlugin(t, c, billingFallbackPlugin)
+	result, taskErr := EstimateTaskSubmit(c, info)
+	require.Nil(t, taskErr)
+	require.NotNil(t, result)
+	assert.Equal(t, common.QuotaRound(0.026*common.QuotaPerUnit), result.Quota)
+	assert.Nil(t, info.Billing)
+	assert.Empty(t, result.UpstreamTaskID)
+	assert.Empty(t, result.TaskData)
+}

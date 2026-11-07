@@ -2,9 +2,12 @@ package controller
 
 import (
 	"maps"
+	"slices"
+	"strings"
 
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/model"
+	"github.com/QuantumNous/new-api/pkg/jsplugin"
 	"github.com/QuantumNous/new-api/service"
 	"github.com/QuantumNous/new-api/setting/ratio_setting"
 
@@ -35,6 +38,40 @@ func filterPricingByUsableGroups(pricing []model.Pricing, usableGroup map[string
 	return filtered
 }
 
+// Customer pricing uses the storefront identity. Never mutate the shared
+// pricing cache: administration still needs the actual provider binding.
+func storefrontPricing(pricing []model.Pricing) []model.Pricing {
+	result := slices.Clone(pricing)
+	for i := range result {
+		item := &result[i]
+		branded := strings.HasPrefix(item.ModelName, "beesky/")
+		item.BillingPluginVariants = slices.Clone(item.BillingPluginVariants)
+		for j := range item.BillingPluginVariants {
+			variant := &item.BillingPluginVariants[j]
+			if variant.PluginKey != "apipass" {
+				continue
+			}
+			branded = true
+			variant.PluginKey, variant.PluginName, variant.Icon = "beeskybase", "BeeskyBase", "text:BB"
+			variant.BillingUsageSchema = jsplugin.CloneUsageSchema(variant.BillingUsageSchema)
+			delete(variant.BillingUsageSchema, "credits")
+			variant.BillingUsageExamples = jsplugin.CloneUsageExamples(variant.BillingUsageExamples)
+			for k := range variant.BillingUsageExamples {
+				delete(variant.BillingUsageExamples[k].Facts, "credits")
+			}
+		}
+		if branded {
+			item.BillingUsageSchema = jsplugin.CloneUsageSchema(item.BillingUsageSchema)
+			delete(item.BillingUsageSchema, "credits")
+			item.BillingUsageExamples = jsplugin.CloneUsageExamples(item.BillingUsageExamples)
+			for k := range item.BillingUsageExamples {
+				delete(item.BillingUsageExamples[k].Facts, "credits")
+			}
+		}
+	}
+	return result
+}
+
 func GetPricing(c *gin.Context) {
 	pricing := model.GetPricing()
 	userId, exists := c.Get("id")
@@ -57,6 +94,7 @@ func GetPricing(c *gin.Context) {
 
 	usableGroup = service.GetUserUsableGroups(group)
 	pricing = filterPricingByUsableGroups(pricing, usableGroup)
+	pricing = storefrontPricing(pricing)
 	// check groupRatio contains usableGroup
 	for group := range ratio_setting.GetGroupRatioCopy() {
 		if _, ok := usableGroup[group]; !ok {

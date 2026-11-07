@@ -136,6 +136,7 @@ export function RechargeFormCard({
     enableWaffoTopup ||
     enableWaffoPancakeTopup
   const hasAnyTopup = hasConfigurableTopup || enableCreemTopup
+  const showOfflineNotice = !hasAnyTopup && !topupInfo?.enable_sepay_topup
   const hasStandardPaymentMethods =
     Array.isArray(topupInfo?.pay_methods) && topupInfo.pay_methods.length > 0
   const hasWaffoPaymentMethods =
@@ -487,7 +488,8 @@ export function RechargeFormCard({
             </>
           )}
         </div>
-      ) : (
+      ) : null}
+      {showOfflineNotice && (
         <Alert>
           <AlertDescription>
             {t(

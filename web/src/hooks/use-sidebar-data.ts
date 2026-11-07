@@ -16,28 +16,27 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import {
-  Activity,
-  Box,
-  ClipboardList,
-  CreditCard,
-  FileText,
-  FlaskConical,
-  Key,
-  LayoutDashboard,
-  ListTodo,
-  MessageSquare,
-  PlugZap,
-  Radio,
-  ServerCog,
-  Settings,
-  ShieldCheck,
-  Ticket,
-  User,
-  Users,
-  Wallet,
-} from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import {
+  TbChartDots3 as Activity,
+  TbHexagons as Box,
+  TbShieldSearch as ClipboardList,
+  TbCards as CreditCard,
+  TbFileAnalytics as FileText,
+  TbSparkles as FlaskConical,
+  TbSquareKey as Key,
+  TbLayoutGrid as LayoutDashboard,
+  TbListDetails as ListTodo,
+  TbPuzzle as PlugZap,
+  TbRouteSquare as Radio,
+  TbServer2 as ServerCog,
+  TbAdjustmentsHorizontal as Settings,
+  TbLockAccess as ShieldCheck,
+  TbGift as Ticket,
+  TbUserCircle as User,
+  TbUsersGroup as Users,
+  TbCoin as Wallet,
+} from 'react-icons/tb'
 
 import type { SidebarBadges, SidebarData } from '@/components/layout/types'
 import { ROLE } from '@/lib/roles'
@@ -61,11 +60,6 @@ export function useSidebarData(badges: SidebarBadges = {}): SidebarData {
             title: t('Playground'),
             url: '/playground',
             icon: FlaskConical,
-          },
-          {
-            title: t('Chat'),
-            icon: MessageSquare,
-            type: 'chat-presets',
           },
         ],
       },

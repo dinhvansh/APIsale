@@ -350,7 +350,13 @@ function formatCurrencyValue(
     maximumFractionDigits: options.compact ? 1 : digits,
   }).format(adjustedValue)
 
-  return options.showSymbol ? `${meta.symbol} ${decimal}` : decimal
+  if (!options.showSymbol) {
+    return decimal
+  }
+  if (meta.symbol === 'credit') {
+    return `${decimal} credit`
+  }
+  return `${meta.symbol} ${decimal}`
 }
 
 /**

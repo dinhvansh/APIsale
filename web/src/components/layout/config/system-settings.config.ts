@@ -18,15 +18,15 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import type { TFunction } from 'i18next'
 import {
-  Box,
-  Route,
-  CreditCard,
-  Layout,
-  Settings,
-  Shield,
-  ShieldAlert,
-  Wrench,
-} from 'lucide-react'
+  TbCube as Box,
+  TbRoute as Route,
+  TbCreditCard as CreditCard,
+  TbLayout as Layout,
+  TbSettings as Settings,
+  TbShield as Shield,
+  TbShieldExclamation as ShieldAlert,
+  TbTool as Wrench,
+} from 'react-icons/tb'
 
 import { getAuthSectionNavItems } from '@/features/system-settings/auth/section-registry.tsx'
 import { getBillingSectionNavItems } from '@/features/system-settings/billing/section-registry.tsx'

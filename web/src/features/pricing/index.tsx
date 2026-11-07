@@ -21,6 +21,7 @@ import { useTranslation } from 'react-i18next'
 
 import { PublicLayout } from '@/components/layout'
 import { PageTransition } from '@/components/page-transition'
+import { Button } from '@/components/ui/button'
 
 import {
   LoadingSkeleton,
@@ -35,6 +36,7 @@ import {
 import { EXCLUDED_GROUPS, VIEW_MODES } from './constants'
 import { useFilters } from './hooks/use-filters'
 import { usePricingData } from './hooks/use-pricing-data'
+import { parseTags } from './lib/filters'
 
 export function Pricing() {
   const { t } = useTranslation()
@@ -53,6 +55,15 @@ export function Pricing() {
     priceRate,
     usdExchangeRate,
   } = usePricingData()
+
+  const [category, setCategory] = useState('all')
+  const categoryModels = useMemo(
+    () =>
+      category === 'all'
+        ? models
+        : models.filter((model) => parseTags(model.tags).includes(category)),
+    [models, category]
+  )
 
   const {
     searchInput,
@@ -81,7 +92,7 @@ export function Pricing() {
     availableTags,
     clearFilters,
     clearSearch,
-  } = useFilters(models || [])
+  } = useFilters(categoryModels || [])
 
   const handleModelClick = useCallback((modelName: string) => {
     setSelectedModelName(modelName)
@@ -195,9 +206,7 @@ export function Pricing() {
               value={searchInput}
               onChange={setSearchInput}
               onClear={clearSearch}
-              placeholder={t(
-                'Search model name, provider, endpoint, or tag...'
-              )}
+              placeholder={t('Search models by name or brand...')}
               className='mx-auto mt-4 max-w-2xl sm:mt-6'
             />
           </header>
@@ -225,6 +234,31 @@ export function Pricing() {
             />
 
             <main className='min-w-0 space-y-4'>
+              <nav
+                aria-label={t('Model type')}
+                className='flex flex-wrap gap-2'
+              >
+                {['all', 'Chat', 'Image', 'Video', 'Audio', 'Tools'].map(
+                  (value) => (
+                    <Button
+                      key={value}
+                      size='sm'
+                      variant={category === value ? 'default' : 'outline'}
+                      aria-pressed={category === value}
+                      onClick={() => setCategory(value)}
+                    >
+                      {t(value === 'all' ? 'All' : value)}
+                      <span className='ml-1 text-[11px] opacity-70'>
+                        {value === 'all'
+                          ? models.length
+                          : models.filter((model) =>
+                              parseTags(model.tags).includes(value)
+                            ).length}
+                      </span>
+                    </Button>
+                  )
+                )}
+              </nav>
               <PricingToolbar
                 filteredCount={filteredModels.length}
                 totalCount={models?.length}
