@@ -10,3 +10,12 @@ docs
 /web/node_modules
 /web/dist
 !THIRD-PARTY-LICENSES.md
+
+# Keep local secrets and runtime data out of build context
+.env
+.env.*
+*.private.json
+*.db
+*.db-*
+/data
+/logs
