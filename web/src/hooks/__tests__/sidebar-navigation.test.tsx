@@ -5,6 +5,9 @@ import { useSidebarData } from '../use-sidebar-data'
 
 it('keeps Studio and hides the unavailable chat preset menu', () => {
   const { result } = renderHook(() => useSidebarData())
+  expect(
+    result.current.navGroups.find((group) => group.id === 'chat')?.title
+  ).not.toBe('Chat')
   const items = result.current.navGroups.flatMap((group) => group.items)
   expect(
     items.some((item) => 'url' in item && item.url === '/playground')

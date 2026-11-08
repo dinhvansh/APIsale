@@ -76,7 +76,7 @@ function EmptyAboutState() {
               to='/docs'
               className='rounded-full border px-6 py-3 font-semibold'
             >
-              {t('Documentation')}
+              {t('Docs')}
             </Link>
           </div>
         </div>
@@ -84,7 +84,7 @@ function EmptyAboutState() {
           <img
             src='/beesky-logo.svg'
             alt='BeeskyBase'
-            className='w-full max-w-56'
+            className='w-full max-w-56 rounded-full'
           />
         </div>
       </div>

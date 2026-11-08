@@ -54,7 +54,7 @@ export function useSidebarData(badges: SidebarBadges = {}): SidebarData {
     navGroups: [
       {
         id: 'chat',
-        title: t('Chat'),
+        title: t('AI workspace'),
         items: [
           {
             title: t('Playground'),
