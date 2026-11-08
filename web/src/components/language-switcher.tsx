@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TbLanguage as Languages, TbCheck as Check } from 'react-icons/tb'
+import { TbWorld as Globe, TbCheck as Check } from 'react-icons/tb'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -56,9 +56,14 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger
-        render={<Button variant='ghost' size='icon' className='h-9 w-9' />}
+        render={
+          <Button variant='ghost' size='sm' className='h-9 gap-1.5 px-2' />
+        }
       >
-        <Languages className='size-[1.2rem]' />
+        <Globe className='size-[1.2rem]' aria-hidden='true' />
+        <span className='text-xs font-semibold' aria-hidden='true'>
+          {currentLanguage.slice(0, 2).toUpperCase()}
+        </span>
         <span className='sr-only'>{t('Change language')}</span>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
