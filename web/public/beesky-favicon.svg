@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <title>BeeSkyBase</title>
+  <defs>
+    <clipPath id="badge">
+      <circle cx="90" cy="90" r="85"/>
+    </clipPath>
+  </defs>
+  <circle cx="90" cy="90" r="85" fill="#FFDC00"/>
+  <g clip-path="url(#badge)" fill="#121410">
+    <path d="M35 24 73 51 125 2 107 0 73 32 49 15Z"/>
+    <path d="M15 51 72 89 147 17 136 7 73 69 25 37Z"/>
+    <path d="M0 95 73 144 170 52 155 37 73 114 7 67Z"/>
+  </g>
+  <circle cx="90" cy="90" r="85" fill="none" stroke="#121410" stroke-width="10"/>
+</svg>
